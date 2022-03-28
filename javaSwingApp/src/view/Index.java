@@ -12,6 +12,7 @@ import javax.swing.text.Document;
 import javax.swing.text.Highlighter;
 import javax.swing.text.JTextComponent;
 import model.dictionary;
+import model.history;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Index extends javax.swing.JFrame {
      */
     public Index() {
         initComponents();
+        myInit();
     }
 
     /**
@@ -371,7 +373,7 @@ public class Index extends javax.swing.JFrame {
                 .addComponent(deleteBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(randomBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -605,7 +607,7 @@ public class Index extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(SearchBtn))
         );
@@ -630,14 +632,14 @@ public class Index extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -692,7 +694,7 @@ public class Index extends javax.swing.JFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
+                .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 846, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel10Layout.setVerticalGroup(
@@ -766,7 +768,7 @@ public class Index extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                     .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -776,7 +778,7 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -822,7 +824,7 @@ public class Index extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 411, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 423, Short.MAX_VALUE)
                     .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -832,7 +834,7 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 356, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 821, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -921,7 +923,7 @@ public class Index extends javax.swing.JFrame {
 
     private void historyBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_historyBtnMouseClicked
         // TODO add your handling code here:
-
+        ClickHistoryBtn();
     }//GEN-LAST:event_historyBtnMouseClicked
 
     private void editBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editBtnMouseClicked
@@ -939,7 +941,7 @@ public class Index extends javax.swing.JFrame {
 
     private void SearchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchBtnMouseClicked
         // TODO add your handling code here:
-        String inputSearch = textInputSearch.getText();
+        String inputSearch = textInputSearch.getText().trim().replaceAll(" +", " ");
         if ("".equals(inputSearch)) {
             JOptionPane.showMessageDialog(this, "Please enter something!");
             return;
@@ -947,16 +949,21 @@ public class Index extends javax.swing.JFrame {
 
         int idSearchBy = SearchByComboBox.getSelectedIndex();
 
+        Search(inputSearch, idSearchBy);
+
+        history.SaveHistory(inputSearch);
+    }//GEN-LAST:event_SearchBtnMouseClicked
+
+    private void Search(String inputSearch, int idSearchBy) {
         if (idSearchBy == 0) {
             // Search by slang word
 //            JOptionPane.showMessageDialog(this, "Search by Slang word :" + inputSearch);
-            String result = dictionary.searchBySlangword(inputSearch.trim().replaceAll(" +", " "));
+            String result = dictionary.searchBySlangword(inputSearch);
             if (result == null) {
                 JOptionPane.showMessageDialog(this, "No result match with " + inputSearch);
 
             } else {
                 textOutputSearch.setText(result);
-
             }
 
 //            StyledDocument doc = jScrollPane2.getStyledDocument();
@@ -966,20 +973,15 @@ public class Index extends javax.swing.JFrame {
         } else if (idSearchBy == 1) {
             // Search by definition
 //            JOptionPane.showMessageDialog(this, "Search by definition :" + inputSearch);
-            String result = dictionary.searchByDefinition(inputSearch.trim().replaceAll(" +", " "));
+            String result = dictionary.searchByDefinition(inputSearch);
 
             textOutputSearch.setText(result);
-            String[] inputWords = inputSearch.trim().replaceAll(" +", " ").split(" ");
+            String[] inputWords = inputSearch.split(" ");
             for (String inputWord : inputWords) {
                 highlight(textOutputSearch, inputWords);
 
             }
-
         }
-    }//GEN-LAST:event_SearchBtnMouseClicked
-
-    private void Search() {
-
     }
 
     /**
@@ -1055,20 +1057,41 @@ public class Index extends javax.swing.JFrame {
         }
     }
 
+    private void myInit() {
+        SearchBody.setVisible(true);
+        AddNewWordBody.setVisible(false);
+
+        SearchActionPanel.setVisible(true);
+        EditActionPanel.setVisible(false);
+//        EditActionPanel1.setVisible(false);
+    }
+
     private void ClickSearchNavlink() {
         SearchBody.setVisible(true);
         AddNewWordBody.setVisible(false);
 
         SearchActionPanel.setVisible(true);
         EditActionPanel.setVisible(false);
-
+//        EditActionPanel1.setVisible(false);
     }
 
     private void ClickEditBtn() {
         SearchActionPanel.setVisible(false);
         EditActionPanel.setVisible(true);
+//        EditActionPanel1.setVisible(false);
     }
 
+    private void ClickHistoryBtn() {
+        SearchActionPanel.setVisible(false);
+        EditActionPanel.setVisible(false);
+//        EditActionPanel1.setVisible(true);
+    }
+
+//    private void ClickBackToSearchBtn() {
+//        SearchActionPanel.setVisible(false);
+//        EditActionPanel.setVisible(false);
+//        HistoryPanel.setVisible(true);
+//    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ActionBtn;
     private javax.swing.JPanel ActionPanel;
