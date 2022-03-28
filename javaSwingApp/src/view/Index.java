@@ -4,7 +4,14 @@
  */
 package view;
 
-import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Document;
+import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
+import model.dictionary;
 
 /**
  *
@@ -66,13 +73,13 @@ public class Index extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jButton4 = new javax.swing.JButton();
+        SearchByComboBox = new javax.swing.JComboBox<>();
+        SearchBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textInputSearch = new javax.swing.JTextArea();
         jPanel5 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        textOutputSearch = new javax.swing.JTextArea();
+        jScrollPane7 = new javax.swing.JScrollPane();
+        textOutputSearch = new javax.swing.JTextPane();
         AddNewWordBody = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
@@ -549,8 +556,8 @@ public class Index extends javax.swing.JFrame {
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Search by");
 
-        jComboBox1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Slang word", "Definition" }));
+        SearchByComboBox.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        SearchByComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Slang word", "Definition" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -560,7 +567,7 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(SearchByComboBox, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -568,23 +575,28 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+                .addComponent(SearchByComboBox, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jButton4.setBackground(new java.awt.Color(255, 255, 102));
-        jButton4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(0, 0, 0));
-        jButton4.setText("Search");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        SearchBtn.setBackground(new java.awt.Color(255, 255, 102));
+        SearchBtn.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        SearchBtn.setForeground(new java.awt.Color(0, 0, 0));
+        SearchBtn.setText("Search");
+        SearchBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchBtnMouseClicked(evt);
+            }
+        });
+        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                SearchBtnActionPerformed(evt);
             }
         });
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textInputSearch.setColumns(20);
+        textInputSearch.setRows(5);
+        jScrollPane1.setViewportView(textInputSearch);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -595,37 +607,38 @@ public class Index extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4))
+                .addComponent(SearchBtn))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(SearchBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1)))
         );
 
         SearchActionPanel.add(jPanel4, java.awt.BorderLayout.PAGE_START);
 
-        textOutputSearch.setEditable(false);
-        textOutputSearch.setColumns(20);
-        textOutputSearch.setRows(5);
         textOutputSearch.setFont( textOutputSearch.getFont().deriveFont(textOutputSearch.getFont().getSize() + 5.0f) );
-        jScrollPane2.setViewportView(textOutputSearch);
+        jScrollPane7.setViewportView(textOutputSearch);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 847, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 823, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 314, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         SearchActionPanel.add(jPanel5, java.awt.BorderLayout.CENTER);
@@ -920,14 +933,60 @@ public class Index extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_SearchBtnActionPerformed
+
+    private void SearchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchBtnMouseClicked
+        // TODO add your handling code here:
+        String inputSearch = textInputSearch.getText();
+        if ("".equals(inputSearch)) {
+            JOptionPane.showMessageDialog(this, "Please enter something!");
+            return;
+        }
+
+        int idSearchBy = SearchByComboBox.getSelectedIndex();
+
+        if (idSearchBy == 0) {
+            // Search by slang word
+//            JOptionPane.showMessageDialog(this, "Search by Slang word :" + inputSearch);
+            String result = dictionary.searchBySlangword(inputSearch.trim().replaceAll(" +", " "));
+            if (result == null) {
+                JOptionPane.showMessageDialog(this, "No result match with " + inputSearch);
+
+            } else {
+                textOutputSearch.setText(result);
+
+            }
+
+//            StyledDocument doc = jScrollPane2.getStyledDocument();
+//            SimpleAttributeSet center = new SimpleAttributeSet();
+//            StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
+//            doc.setParagraphAttributes(0, doc.getLength(), center, false);
+        } else if (idSearchBy == 1) {
+            // Search by definition
+//            JOptionPane.showMessageDialog(this, "Search by definition :" + inputSearch);
+            String result = dictionary.searchByDefinition(inputSearch.trim().replaceAll(" +", " "));
+
+            textOutputSearch.setText(result);
+            String[] inputWords = inputSearch.trim().replaceAll(" +", " ").split(" ");
+            for (String inputWord : inputWords) {
+                highlight(textOutputSearch, inputWords);
+
+            }
+
+        }
+    }//GEN-LAST:event_SearchBtnMouseClicked
+
+    private void Search() {
+
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        dictionary.getData();
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -960,6 +1019,42 @@ public class Index extends javax.swing.JFrame {
         });
     }
 
+// Creates highlights around all occurrences of pattern in textComp
+    public void highlight(JTextComponent textComp, String[] pattern) {
+        // First remove all old highlights
+        removeHighlights(textComp);
+
+        try {
+            Highlighter hilite = textComp.getHighlighter();
+            Document doc = textComp.getDocument();
+            String text = doc.getText(0, doc.getLength());
+            int pos = 0;
+
+            // Search for pattern
+            // see I have updated now its not case sensitive
+            for (String wordHighlight : pattern) {
+                while ((pos = text.toUpperCase().indexOf(wordHighlight.toUpperCase(), pos)) >= 0) {
+                    // Create highlighter using private painter and apply around pattern
+                    hilite.addHighlight(pos, pos + wordHighlight.length(), myHighlightPainter);
+                    pos += wordHighlight.length();
+                }
+            }
+
+        } catch (BadLocationException e) {
+        }
+    }
+
+// Removes only our private highlights
+    public void removeHighlights(JTextComponent textComp) {
+        Highlighter hilite = textComp.getHighlighter();
+        Highlighter.Highlight[] hilites = hilite.getHighlights();
+        for (int i = 0; i < hilites.length; i++) {
+            if (hilites[i].getPainter() instanceof MyHighlightPainter) {
+                hilite.removeHighlight(hilites[i]);
+            }
+        }
+    }
+
     private void ClickSearchNavlink() {
         SearchBody.setVisible(true);
         AddNewWordBody.setVisible(false);
@@ -988,15 +1083,15 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JPanel Navside;
     private javax.swing.JPanel SearchActionPanel;
     private javax.swing.JPanel SearchBody;
+    private javax.swing.JButton SearchBtn;
+    private javax.swing.JComboBox<String> SearchByComboBox;
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JButton historyBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1023,17 +1118,28 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
     private javax.swing.JTextArea jTextArea5;
     private javax.swing.JTextArea jTextArea6;
     private javax.swing.JButton randomBtn;
-    private javax.swing.JTextArea textOutputSearch;
+    private javax.swing.JTextArea textInputSearch;
+    private javax.swing.JTextPane textOutputSearch;
     // End of variables declaration//GEN-END:variables
+
+    Highlighter.HighlightPainter myHighlightPainter = new MyHighlightPainter(Color.yellow);
+
+}
+
+// A private subclass of the default highlight painter
+class MyHighlightPainter extends DefaultHighlighter.DefaultHighlightPainter {
+
+    public MyHighlightPainter(Color color) {
+        super(color);
+    }
 }

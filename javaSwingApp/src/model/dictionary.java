@@ -29,14 +29,14 @@ public class dictionary {
         getData();
 //        System.out.println("get definitionSplit from word: " + dict.get("|O|"));
 //        System.out.println("get word from definitionSplit: " + dict.get("LOL"));
-        List<String> results = searchByDefinition("Laugh Out");
-        if (!results.isEmpty()) {
-            for (String result : results) {
-                System.out.println(result);
-            }
-        } else {
-            System.out.println("No result");
-        }
+//        List<String> results = searchByDefinition("Laugh Out");
+//        if (!results.isEmpty()) {
+//            for (String result : results) {
+//                System.out.println(result);
+//            }
+//        } else {
+//            System.out.println("No result");
+//        }
 
     }
 
@@ -45,8 +45,8 @@ public class dictionary {
         return result;
     }
 
-    public static List<String> searchByDefinition(String input) {
-        List<String> result = new ArrayList<>();
+    public static String searchByDefinition(String input) {
+        String result = "";
 
         String[] inputs = input.split(" ");
         List<List<Integer>> temp = new ArrayList<>();
@@ -63,8 +63,8 @@ public class dictionary {
             }
             if (isExistInAllLists) {
                 String res = slangWord.get(index);
-                res = res + " :" + dict.get(res);
-                result.add(res);
+                res = res + " :" + dict.get(res) + "\n";
+                result += res;
             }
 
         }
