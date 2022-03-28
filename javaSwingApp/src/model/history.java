@@ -4,8 +4,12 @@
  */
 package model;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  *
@@ -30,4 +34,24 @@ public class history {
                     + e.getMessage());
         }
     }
+
+    public static String getData() {
+        StringBuffer sb = new StringBuffer();    //constructs a string buffer with no characters
+        try {
+            File file = new File(historyFilePath);    //creates a new file instance
+            FileReader fr = new FileReader(file);   //reads the file
+            BufferedReader br = new BufferedReader(fr);  //creates a buffering character input stream
+
+            String line;
+            while ((line = br.readLine()) != null) {
+                sb.append(line);      //appends line to string buffer
+                sb.append("\n");     //line feed
+            }
+            fr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return sb.toString();
+    }
+
 }
