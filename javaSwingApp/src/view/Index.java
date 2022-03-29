@@ -345,6 +345,11 @@ public class Index extends javax.swing.JFrame {
         deleteBtn.setForeground(new java.awt.Color(0, 0, 0));
         deleteBtn.setText("Delete this word");
         deleteBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        deleteBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                deleteBtnMouseClicked(evt);
+            }
+        });
         deleteBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteBtnActionPerformed(evt);
@@ -1061,6 +1066,40 @@ public class Index extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_SaveEditMouseClicked
+
+    private void deleteBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deleteBtnMouseClicked
+        // TODO add your handling code here:
+//JOptionPane.showMessageDialog(this, "Please enter something!");
+//JOptionPane.showConfirmDialog(this, Header)
+
+        if (SearchActionPanel.isVisible()) {
+            int idSearchBy = SearchByComboBox.getSelectedIndex();
+            if (idSearchBy == 1) {
+                JOptionPane.showMessageDialog(this, "Firstly, using Search by Slang word to search for which word you want to delete!");
+            } else {
+                String word = textInputSearch.getText().trim().replaceAll(" +", " ");
+                if ("".equals(word)) {
+                    JOptionPane.showMessageDialog(this, "Please fill in Search input!");
+                } else {
+                    int a = JOptionPane.showConfirmDialog(this, "Are you sure to delete \"" + word + "\"?");
+                    if (a == JOptionPane.YES_OPTION) {
+                        int deleteResult = dictionary.Delete(word);
+                        if (deleteResult == -1) {
+                            JOptionPane.showMessageDialog(this, "Delete failure!");
+                        } else if (deleteResult == 0) {
+                            JOptionPane.showMessageDialog(this, "\"" + word + "\" is not exist in system!");
+                        } else if (deleteResult == 1) {
+                            JOptionPane.showMessageDialog(this, "Delete success!");
+                            textOutputSearch.setText("");
+                        }
+                    }
+
+                }
+            }
+
+        }
+
+    }//GEN-LAST:event_deleteBtnMouseClicked
 
     private void Search(String inputSearch, int idSearchBy) {
         if (idSearchBy == 0) {
