@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  *
@@ -23,10 +25,13 @@ public class dictionary {
     static String slangWordFilePath = "slang.txt";
     static String slangWordUpdateFilePath = "slangUpdate.txt";
     static String slangWordDeleteFilePath = "slangDelete.txt";
+    static String slangWordAddFilePath = "slangAdd.txt";
 
     public static List<String> slangWord = new ArrayList<>();
     static HashMap<String, List<Integer>> definitionSplit = new HashMap<>();
     static HashMap<String, String> dict = new HashMap<>();
+    static HashMap<String, String> updateWords = new HashMap<>();
+    static List<String> deleteWords = new ArrayList<>();
 
     public static void main(String[] args) {
         System.out.println("Hello");
@@ -43,6 +48,33 @@ public class dictionary {
 //            System.out.println("No result");
 //        }
 
+    }
+
+    public static boolean Add(String word, String definition) {
+        boolean result = true;
+        word = word.trim().replaceAll(" +", " ");
+        definition = definition.trim().replaceAll(" +", " ");
+        try {
+            FileWriter fstream = new FileWriter(slangWordAddFilePath, true);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(word + "`" + definition + "\n");
+            out.close();
+
+            if (deleteWords.contains(word)) {
+                deleteWords.remove(word);
+                overwriteDeleteFile();
+            }
+            if (updateWords.containsKey(word)) {
+                updateWords.put(word, definition);
+                overwriteUpdateFile();
+            }
+            getData();
+        } catch (Exception e) {
+            result = false;
+            System.err.println("Error while writing to file: "
+                    + e.getMessage());
+        }
+        return result;
     }
 
     public static int Delete(String word) {
@@ -68,16 +100,14 @@ public class dictionary {
     }
 
     public static boolean Update(String word, String definition) {
-//        word = word.trim().replaceAll(" +", " ");
-//        definition = definition.trim().replaceAll(" +", " ");
-
         boolean result = true;
+        word = word.trim().replaceAll(" +", " ");
+        definition = definition.trim().replaceAll(" +", " ");
         try {
             FileWriter fstream = new FileWriter(slangWordUpdateFilePath, true);
             BufferedWriter out = new BufferedWriter(fstream);
-            out.write(word.trim().replaceAll(" +", " ") + "`" + definition.trim().replaceAll(" +", " ") + "\n");
+            out.write(word + "`" + definition + "\n");
             out.close();
-
         } catch (Exception e) {
             result = false;
             System.err.println("Error while writing to file: "
@@ -157,7 +187,8 @@ public class dictionary {
         definitionSplit.clear();
         dict.clear();
         int index = 0;
-        List<String> deletedWords = readDeleteFile();
+        deleteWords = readDeleteFile();
+
         try {
             File file = new File(slangWordFilePath);    //creates a new file instance
             FileReader fr = new FileReader(file);   //reads the file
@@ -167,7 +198,7 @@ public class dictionary {
                 line = line.trim().replaceAll(" +", " ");
 
                 String[] lineSplited = line.split("`");
-                if (lineSplited.length == 2 && !deletedWords.contains(lineSplited[0])) {
+                if (lineSplited.length == 2 && !deleteWords.contains(lineSplited[0])) {
                     slangWord.add(lineSplited[0]);
                     String[] defs = lineSplited[1].split(" ");
                     for (String item : defs) {
@@ -190,7 +221,13 @@ public class dictionary {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        readUpdateFile(index);
 
+    }
+
+    static void readUpdateFile(int indexMark) {
+        int index = indexMark;
+        updateWords.clear();
         try {
             File file = new File(slangWordUpdateFilePath);    //creates a new file instance
             FileReader fr = new FileReader(file);   //reads the file
@@ -200,7 +237,9 @@ public class dictionary {
                 line = line.trim().replaceAll(" +", " ");
 
                 String[] lineSplited = line.split("`");
-                if (lineSplited.length == 2 && !deletedWords.contains(lineSplited[0])) {
+                updateWords.put(lineSplited[0], lineSplited[1]);
+
+                if (lineSplited.length == 2 && !deleteWords.contains(lineSplited[0])) {
                     slangWord.add(lineSplited[0]);
                     String[] defs = lineSplited[1].split(" ");
                     for (String item : defs) {
@@ -225,4 +264,32 @@ public class dictionary {
         }
     }
 
+    public static boolean isExistWord(String word) {
+        return slangWord.contains(word);
+    }
+
+    static void overwriteDeleteFile() throws IOException {
+        File f = new File(slangWordDeleteFilePath);  //Creation of File Descriptor for output file
+        FileWriter fw = new FileWriter(f); //Creation of File Writer object
+        for (String wordDeleted : deleteWords) {
+            fw.write(wordDeleted + "\n"); //Write Line by Line
+        }
+        fw.flush();
+        fw.close();
+
+    }
+
+    static void overwriteUpdateFile() throws IOException {
+        File f = new File(slangWordUpdateFilePath);  //Creation of File Descriptor for output file
+        FileWriter fw = new FileWriter(f); //Creation of File Writer object
+        Set<Map.Entry<String, String>> set = updateWords.entrySet();
+
+        for (Map.Entry<String, String> me : set) {
+            String lineWrite = me.getKey() + "`" + me.getValue() + "\n";
+            fw.write(lineWrite);
+        }
+        fw.flush();
+        fw.close();
+
+    }
 }

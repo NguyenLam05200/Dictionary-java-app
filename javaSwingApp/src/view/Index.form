@@ -1287,6 +1287,7 @@
                         </Property>
                       </Properties>
                       <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButton8MouseClicked"/>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
                       </Events>
                       <AuxValues>
@@ -1404,7 +1405,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea3">
+                        <Component class="javax.swing.JTextArea" name="textInputWordAdd">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1413,7 +1414,7 @@
                             <Property name="rows" type="int" value="5"/>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTextArea3.setFont( jTextArea3.getFont().deriveFont(jTextArea3.getFont().getSize() + 5.0f) );"/>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textInputWordAdd.setFont( textInputWordAdd.getFont().deriveFont(textInputWordAdd.getFont().getSize() + 5.0f) );"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>
@@ -1511,7 +1512,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTextArea" name="jTextArea4">
+                        <Component class="javax.swing.JTextArea" name="textInputDefinitionAdd">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -1520,7 +1521,7 @@
                             <Property name="rows" type="int" value="5"/>
                           </Properties>
                           <AuxValues>
-                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTextArea4.setFont( jTextArea4.getFont().deriveFont(jTextArea4.getFont().getSize() + 5.0f) );"/>
+                            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textInputDefinitionAdd.setFont( textInputDefinitionAdd.getFont().deriveFont(textInputDefinitionAdd.getFont().getSize() + 5.0f) );"/>
                           </AuxValues>
                         </Component>
                       </SubComponents>

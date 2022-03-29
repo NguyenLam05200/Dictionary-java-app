@@ -95,12 +95,12 @@ public class Index extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        textInputWordAdd = new javax.swing.JTextArea();
         jPanel14 = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
+        textInputDefinitionAdd = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -742,6 +742,11 @@ public class Index extends javax.swing.JFrame {
         jButton8.setForeground(new java.awt.Color(0, 0, 0));
         jButton8.setText("Add");
         jButton8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        jButton8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton8MouseClicked(evt);
+            }
+        });
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
@@ -816,11 +821,11 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTextArea3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        jTextArea3.setFont( jTextArea3.getFont().deriveFont(jTextArea3.getFont().getSize() + 5.0f) );
-        jScrollPane3.setViewportView(jTextArea3);
+        textInputWordAdd.setBackground(new java.awt.Color(255, 255, 255));
+        textInputWordAdd.setColumns(20);
+        textInputWordAdd.setRows(5);
+        textInputWordAdd.setFont( textInputWordAdd.getFont().deriveFont(textInputWordAdd.getFont().getSize() + 5.0f) );
+        jScrollPane3.setViewportView(textInputWordAdd);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
         jPanel12.setLayout(jPanel12Layout);
@@ -872,11 +877,11 @@ public class Index extends javax.swing.JFrame {
 
         jScrollPane4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextArea4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jTextArea4.setFont( jTextArea4.getFont().deriveFont(jTextArea4.getFont().getSize() + 5.0f) );
-        jScrollPane4.setViewportView(jTextArea4);
+        textInputDefinitionAdd.setBackground(new java.awt.Color(255, 255, 255));
+        textInputDefinitionAdd.setColumns(20);
+        textInputDefinitionAdd.setRows(5);
+        textInputDefinitionAdd.setFont( textInputDefinitionAdd.getFont().deriveFont(textInputDefinitionAdd.getFont().getSize() + 5.0f) );
+        jScrollPane4.setViewportView(textInputDefinitionAdd);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1096,10 +1101,58 @@ public class Index extends javax.swing.JFrame {
 
                 }
             }
+        } else {
+            ClickSearchNavlink();
+            int idSearchBy = SearchByComboBox.getSelectedIndex();
+            if (idSearchBy == 1) {
+                JOptionPane.showMessageDialog(this, "Firstly, using Search by Slang word to search for which word you want to delete!");
+            } else {
+                String word = textInputSearch.getText().trim().replaceAll(" +", " ");
+                if ("".equals(word)) {
+                    JOptionPane.showMessageDialog(this, "Please fill in Search input!");
+                } else {
+                    int a = JOptionPane.showConfirmDialog(this, "Are you sure to delete \"" + word + "\"?");
+                    if (a == JOptionPane.YES_OPTION) {
+                        int deleteResult = dictionary.Delete(word);
+                        if (deleteResult == -1) {
+                            JOptionPane.showMessageDialog(this, "Delete failure!");
+                        } else if (deleteResult == 0) {
+                            JOptionPane.showMessageDialog(this, "\"" + word + "\" is not exist in system!");
+                        } else if (deleteResult == 1) {
+                            JOptionPane.showMessageDialog(this, "Delete success!");
+                            textOutputSearch.setText("");
+                        }
+                    }
 
+                }
+            }
         }
 
     }//GEN-LAST:event_deleteBtnMouseClicked
+
+    private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
+        // TODO add your handling code here:
+        String inputWordAdd = textInputWordAdd.getText().trim().replaceAll(" +", " ");;
+        String inputDefinitionAdd = textInputDefinitionAdd.getText().trim().replaceAll(" +", " ");
+
+        if (dictionary.isExistWord(inputWordAdd)) {
+            int a = JOptionPane.showConfirmDialog(this, "\"" + inputWordAdd + "\" is already exist in dictionary, do you want to update it?");
+            if (a == JOptionPane.YES_OPTION) {
+                String def = dictionary.searchBySlangword(inputWordAdd);
+                textInputWordEdit.setText(inputWordAdd);
+                textInputDefinitionEdit.setText(def);
+                ClickEditBtn();
+            }
+        } else {
+            boolean isAdded = dictionary.Add(inputWordAdd, inputDefinitionAdd);
+            if (isAdded) {
+                JOptionPane.showMessageDialog(this, "Add success!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Add failure!");
+
+            }
+        }
+    }//GEN-LAST:event_jButton8MouseClicked
 
     private void Search(String inputSearch, int idSearchBy) {
         if (idSearchBy == 0) {
@@ -1214,6 +1267,8 @@ public class Index extends javax.swing.JFrame {
     }
 
     private void ClickSearchNavlink() {
+        textOutputSearch.setText("");
+
         SearchBody.setVisible(true);
         AddNewWordBody.setVisible(false);
 
@@ -1225,6 +1280,9 @@ public class Index extends javax.swing.JFrame {
     }
 
     private void ClickEditBtn() {
+        SearchBody.setVisible(true);
+        AddNewWordBody.setVisible(false);
+
         SearchActionPanel.setVisible(false);
         EditActionPanel.setVisible(true);
         HistoryActionPanel.setVisible(false);
@@ -1233,6 +1291,10 @@ public class Index extends javax.swing.JFrame {
     }
 
     private void ClickHistoryBtn() {
+
+        SearchBody.setVisible(true);
+        AddNewWordBody.setVisible(false);
+
         SearchActionPanel.setVisible(false);
         EditActionPanel.setVisible(false);
         HistoryActionPanel.setVisible(true);
@@ -1301,11 +1363,11 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTextArea jTextArea3;
-    private javax.swing.JTextArea jTextArea4;
     private javax.swing.JButton randomBtn;
+    private javax.swing.JTextArea textInputDefinitionAdd;
     private javax.swing.JTextArea textInputDefinitionEdit;
     private javax.swing.JTextArea textInputSearch;
+    private javax.swing.JTextArea textInputWordAdd;
     private javax.swing.JTextArea textInputWordEdit;
     private javax.swing.JTextArea textOutputHistory;
     private javax.swing.JTextPane textOutputSearch;
