@@ -51,24 +51,38 @@ public class dictionary {
         String[] inputs = input.split(" ");
         List<List<Integer>> temp = new ArrayList<>();
         for (String word : inputs) {
-            temp.add(definitionSplit.get(word));
-        }
-        for (Integer index : temp.get(0)) {
-            boolean isExistInAllLists = true;
-            for (List<Integer> list : temp) {
-                if (!list.contains(index)) {
-                    isExistInAllLists = false;
-                    break;
-                }
+            if (definitionSplit.containsKey(word)) {
+                temp.add(definitionSplit.get(word));
+
             }
-            if (isExistInAllLists) {
+        }
+
+        if (temp.size() == 0) {
+            result = "";
+        } else if (temp.size() == 1) {
+            for (Integer index : temp.get(0)) {
                 String res = slangWord.get(index);
                 res = res + " :" + dict.get(res) + "\n";
                 result += res;
             }
-
+        } else {
+            for (Integer index : temp.get(0)) {
+                boolean isExistInAllLists = true;
+                for (List<Integer> list : temp) {
+                    if (!list.contains(index)) {
+                        isExistInAllLists = false;
+                        break;
+                    }
+                }
+                if (isExistInAllLists) {
+                    String res = slangWord.get(index);
+                    res = res + " :" + dict.get(res) + "\n";
+                    result += res;
+                }
+            }
         }
 
+//        System.out.println("-------------" + result);
         return result;
     }
 
