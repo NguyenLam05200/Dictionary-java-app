@@ -1116,6 +1116,9 @@
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
                             <Component class="javax.swing.JTextPane" name="textOutputSearch">
+                              <Properties>
+                                <Property name="editable" type="boolean" value="false"/>
+                              </Properties>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="textOutputSearch.setFont( textOutputSearch.getFont().deriveFont(textOutputSearch.getFont().getSize() + 5.0f) );"/>
                               </AuxValues>

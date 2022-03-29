@@ -5,8 +5,6 @@
 package view;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -689,6 +687,7 @@ public class Index extends javax.swing.JFrame {
         jPanel5.setBackground(new java.awt.Color(170, 189, 172));
 
         textOutputSearch.setFont( textOutputSearch.getFont().deriveFont(textOutputSearch.getFont().getSize() + 5.0f) );
+        textOutputSearch.setEditable(false);
         jScrollPane7.setViewportView(textOutputSearch);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -950,7 +949,7 @@ public class Index extends javax.swing.JFrame {
         AddNewWordBody.add(jPanel11, java.awt.BorderLayout.CENTER);
 
         QuizBody.setBackground(new java.awt.Color(170, 189, 172));
-        QuizBody.setLayout(new java.awt.GridLayout());
+        QuizBody.setLayout(new java.awt.GridLayout(1, 0));
 
         jPanel7.setBackground(new java.awt.Color(170, 189, 172));
         jPanel7.setLayout(new java.awt.BorderLayout());
@@ -1511,6 +1510,11 @@ public class Index extends javax.swing.JFrame {
         // TODO add your handling code here:
         String inputWordAdd = textInputWordAdd.getText().trim().replaceAll(" +", " ");;
         String inputDefinitionAdd = textInputDefinitionAdd.getText().trim().replaceAll(" +", " ");
+        if ("" == inputWordAdd) {
+            JOptionPane.showMessageDialog(this, "Please input Slang word!");
+        } else if ("" == inputDefinitionAdd) {
+            JOptionPane.showMessageDialog(this, "Please input Definition!");
+        }
 
         if (dictionary.isExistWord(inputWordAdd)) {
             int a = JOptionPane.showConfirmDialog(this, "\"" + inputWordAdd + "\" is already exist in dictionary, do you want to update it?");
@@ -1894,15 +1898,11 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -1916,10 +1916,8 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
