@@ -362,6 +362,11 @@ public class Index extends javax.swing.JFrame {
         randomBtn.setForeground(new java.awt.Color(0, 0, 0));
         randomBtn.setText("Random a slang word");
         randomBtn.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+        randomBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                randomBtnMouseClicked(evt);
+            }
+        });
         randomBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 randomBtnActionPerformed(evt);
@@ -1154,6 +1159,15 @@ public class Index extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton8MouseClicked
 
+    private void randomBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomBtnMouseClicked
+        // TODO add your handling code here:
+        String[] randomWord = dictionary.randomWord();
+        textInputSearch.setText(randomWord[0]);
+        textOutputSearch.setText(randomWord[1]);
+        ClickSearchNavlink();
+
+    }//GEN-LAST:event_randomBtnMouseClicked
+
     private void Search(String inputSearch, int idSearchBy) {
         if (idSearchBy == 0) {
             // Search by slang word
@@ -1267,7 +1281,6 @@ public class Index extends javax.swing.JFrame {
     }
 
     private void ClickSearchNavlink() {
-        textOutputSearch.setText("");
 
         SearchBody.setVisible(true);
         AddNewWordBody.setVisible(false);

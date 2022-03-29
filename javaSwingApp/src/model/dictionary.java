@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 /**
@@ -291,5 +292,22 @@ public class dictionary {
         fw.flush();
         fw.close();
 
+    }
+
+    public static String[] randomWord() {
+
+        int min = 0;
+        int max = slangWord.size();
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        int randomNumber = r.nextInt((max - min) + 1) + min;
+
+        String key = slangWord.get(randomNumber);
+        String value = dict.get(key);
+        String[] result = {key, value};
+        return result;
     }
 }
