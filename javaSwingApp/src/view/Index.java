@@ -1328,8 +1328,7 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_Navlink1MouseClicked
 
     private void Navlink2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Navlink2MouseClicked
-        SearchBody.setVisible(false);
-        AddNewWordBody.setVisible(true);
+        ClickAddNavlink();
     }//GEN-LAST:event_Navlink2MouseClicked
 
     private void Navlink3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Navlink3MouseClicked
@@ -1508,31 +1507,32 @@ public class Index extends javax.swing.JFrame {
 
     private void jButton8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton8MouseClicked
         // TODO add your handling code here:
-        String inputWordAdd = textInputWordAdd.getText().trim().replaceAll(" +", " ");;
+        String inputWordAdd = textInputWordAdd.getText().trim().replaceAll(" +", " ");
         String inputDefinitionAdd = textInputDefinitionAdd.getText().trim().replaceAll(" +", " ");
-        if ("" == inputWordAdd) {
+        if ("".equals(inputWordAdd)) {
             JOptionPane.showMessageDialog(this, "Please input Slang word!");
-        } else if ("" == inputDefinitionAdd) {
+        } else if ("".equals(inputDefinitionAdd)) {
             JOptionPane.showMessageDialog(this, "Please input Definition!");
-        }
-
-        if (dictionary.isExistWord(inputWordAdd)) {
-            int a = JOptionPane.showConfirmDialog(this, "\"" + inputWordAdd + "\" is already exist in dictionary, do you want to update it?");
-            if (a == JOptionPane.YES_OPTION) {
-                String def = dictionary.searchBySlangword(inputWordAdd);
-                textInputWordEdit.setText(inputWordAdd);
-                textInputDefinitionEdit.setText(def);
-                ClickEditBtn();
-            }
         } else {
-            boolean isAdded = dictionary.Add(inputWordAdd, inputDefinitionAdd);
-            if (isAdded) {
-                JOptionPane.showMessageDialog(this, "Add success!");
+            if (dictionary.isExistWord(inputWordAdd)) {
+                int a = JOptionPane.showConfirmDialog(this, "\"" + inputWordAdd + "\" is already exist in dictionary, do you want to update it?");
+                if (a == JOptionPane.YES_OPTION) {
+                    String def = dictionary.searchBySlangword(inputWordAdd);
+                    textInputWordEdit.setText(inputWordAdd);
+                    textInputDefinitionEdit.setText(def);
+                    ClickEditBtn();
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Add failure!");
+                boolean isAdded = dictionary.Add(inputWordAdd, inputDefinitionAdd);
+                if (isAdded) {
+                    JOptionPane.showMessageDialog(this, "Add success!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Add failure!");
 
+                }
             }
         }
+
     }//GEN-LAST:event_jButton8MouseClicked
 
     private void randomBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_randomBtnMouseClicked
@@ -1797,6 +1797,16 @@ public class Index extends javax.swing.JFrame {
         QuizBody.setVisible(true);
         SearchBody.setVisible(false);
         AddNewWordBody.setVisible(false);
+
+        SearchActionPanel.setVisible(false);
+        EditActionPanel.setVisible(false);
+        HistoryActionPanel.setVisible(false);
+    }
+
+    void ClickAddNavlink() {
+        QuizBody.setVisible(false);
+        SearchBody.setVisible(false);
+        AddNewWordBody.setVisible(true);
 
         SearchActionPanel.setVisible(false);
         EditActionPanel.setVisible(false);
