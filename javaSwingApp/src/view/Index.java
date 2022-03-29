@@ -1243,7 +1243,7 @@ public class Index extends javax.swing.JFrame {
         checkAnsPanel.setLayout(checkAnsPanelLayout);
         checkAnsPanelLayout.setHorizontalGroup(
             checkAnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane8)
+            .addComponent(jScrollPane8, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         checkAnsPanelLayout.setVerticalGroup(
             checkAnsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
