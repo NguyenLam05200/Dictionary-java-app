@@ -310,4 +310,38 @@ public class dictionary {
         String[] result = {key, value};
         return result;
     }
+
+    public static void ResetToOriginal() {
+        try {
+            File f = new File(slangWordUpdateFilePath);  //Creation of File Descriptor for output file
+            FileWriter fw = new FileWriter(f); //Creation of File Writer object
+            fw.write("");
+            fw.flush();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File f = new File(slangWordDeleteFilePath);  //Creation of File Descriptor for output file
+            FileWriter fw = new FileWriter(f); //Creation of File Writer object
+            fw.write("");
+            fw.flush();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File f = new File(slangWordAddFilePath);  //Creation of File Descriptor for output file
+            FileWriter fw = new FileWriter(f); //Creation of File Writer object
+            fw.write("");
+            fw.flush();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        getData();
+    }
 }

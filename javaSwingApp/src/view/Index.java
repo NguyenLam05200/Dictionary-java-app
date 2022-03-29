@@ -39,7 +39,7 @@ public class Index extends javax.swing.JFrame {
 
         Header = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        resetBtn = new javax.swing.JButton();
         Navside = new javax.swing.JPanel();
         Navlink1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -111,14 +111,19 @@ public class Index extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("SLANG WORD");
 
-        jButton1.setBackground(new java.awt.Color(208, 228, 86));
-        jButton1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("Reset to original");
-        jButton1.setBorder(new RoundBtn(30));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        resetBtn.setBackground(new java.awt.Color(208, 228, 86));
+        resetBtn.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        resetBtn.setForeground(new java.awt.Color(0, 0, 0));
+        resetBtn.setText("Reset to original");
+        resetBtn.setBorder(new RoundBtn(30));
+        resetBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                resetBtnMouseClicked(evt);
+            }
+        });
+        resetBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                resetBtnActionPerformed(evt);
             }
         });
 
@@ -130,7 +135,7 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(45, 45, 45))
         );
         HeaderLayout.setVerticalGroup(
@@ -142,7 +147,7 @@ public class Index extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(HeaderLayout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(resetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -321,7 +326,7 @@ public class Index extends javax.swing.JFrame {
                 historyBtnActionPerformed(evt);
             }
         });
-        jButton1.setBorder(new RoundBtn(30));
+        resetBtn.setBorder(new RoundBtn(30));
 
         editBtn.setBackground(new java.awt.Color(236, 224, 255));
         editBtn.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -338,7 +343,7 @@ public class Index extends javax.swing.JFrame {
                 editBtnActionPerformed(evt);
             }
         });
-        jButton1.setBorder(new RoundBtn(30));
+        resetBtn.setBorder(new RoundBtn(30));
 
         deleteBtn.setBackground(new java.awt.Color(0, 255, 194));
         deleteBtn.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -355,7 +360,7 @@ public class Index extends javax.swing.JFrame {
                 deleteBtnActionPerformed(evt);
             }
         });
-        jButton1.setBorder(new RoundBtn(30));
+        resetBtn.setBorder(new RoundBtn(30));
 
         randomBtn.setBackground(new java.awt.Color(230, 249, 115));
         randomBtn.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -372,7 +377,7 @@ public class Index extends javax.swing.JFrame {
                 randomBtnActionPerformed(evt);
             }
         });
-        jButton1.setBorder(new RoundBtn(30));
+        resetBtn.setBorder(new RoundBtn(30));
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -757,7 +762,7 @@ public class Index extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        jButton1.setBorder(new RoundBtn(30));
+        resetBtn.setBorder(new RoundBtn(30));
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -951,9 +956,9 @@ public class Index extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void resetBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_resetBtnActionPerformed
 
     private void Navlink1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Navlink1MouseClicked
         ClickSearchNavlink();
@@ -1168,6 +1173,14 @@ public class Index extends javax.swing.JFrame {
 
     }//GEN-LAST:event_randomBtnMouseClicked
 
+    private void resetBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_resetBtnMouseClicked
+        // TODO add your handling code here:
+        int a = JOptionPane.showConfirmDialog(this, "Are you sure to reset your dictionary to origin?");
+        if (a == JOptionPane.YES_OPTION) {
+            dictionary.ResetToOriginal();
+        }
+    }//GEN-LAST:event_resetBtnMouseClicked
+
     private void Search(String inputSearch, int idSearchBy) {
         if (idSearchBy == 0) {
             // Search by slang word
@@ -1340,7 +1353,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton deleteBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JButton historyBtn;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton8;
@@ -1377,6 +1389,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JButton randomBtn;
+    private javax.swing.JButton resetBtn;
     private javax.swing.JTextArea textInputDefinitionAdd;
     private javax.swing.JTextArea textInputDefinitionEdit;
     private javax.swing.JTextArea textInputSearch;
