@@ -19,10 +19,6 @@ public class history {
 
     static String historyFilePath = "history.txt";
 
-    public static void main(String args[]) {
-
-    }
-
     public static void SaveHistory(String inputSearch) {
         try {
             FileWriter fstream = new FileWriter(historyFilePath, true);

@@ -34,23 +34,6 @@ public class dictionary {
     static HashMap<String, String> updateWords = new HashMap<>();
     static List<String> deleteWords = new ArrayList<>();
 
-    public static void main(String[] args) {
-        System.out.println("Hello");
-
-        getData();
-//        System.out.println("get definitionSplit from word: " + dict.get("|O|"));
-//        System.out.println("get word from definitionSplit: " + dict.get("LOL"));
-//        List<String> results = searchByDefinition("Laugh Out");
-//        if (!results.isEmpty()) {
-//            for (String result : results) {
-//                System.out.println(result);
-//            }
-//        } else {
-//            System.out.println("No result");
-//        }
-
-    }
-
     public static boolean Add(String word, String definition) {
         boolean result = true;
         word = word.trim().replaceAll(" +", " ");
@@ -343,5 +326,57 @@ public class dictionary {
         }
 
         getData();
+    }
+
+    public static String[] quiz(int type) {
+        int min = 0;
+        int max = slangWord.size();
+        if (min >= max) {
+            throw new IllegalArgumentException("max must be greater than min");
+        }
+
+        Random r = new Random();
+        int randomA = r.nextInt((max - min) + 1) + min;
+        int randomB = r.nextInt((max - min) + 1) + min;
+        int randomC = r.nextInt((max - min) + 1) + min;
+        int randomD = r.nextInt((max - min) + 1) + min;
+
+        if (type == 0) {
+            String question = slangWord.get(randomA);
+            String ans = dict.get(question);
+            String ansWrong1 = dict.get(slangWord.get(randomB));
+            String ansWrong2 = dict.get(slangWord.get(randomC));
+            String ansWrong3 = dict.get(slangWord.get(randomD));
+            String[] result = {question, ans, ansWrong1, ansWrong2, ansWrong3};
+            return result;
+        } else if (type == 1) {
+            String ans = slangWord.get(randomA);
+            String question = dict.get(ans);
+            String ansWrong1 = slangWord.get(randomB);
+            String ansWrong2 = slangWord.get(randomC);
+            String ansWrong3 = slangWord.get(randomD);
+            String[] result = {question, ans, ansWrong1, ansWrong2, ansWrong3};
+            return result;
+        }
+        return null;
+    }
+
+    public static int[] quizAns() {
+        int[] values = new int[4];
+        int start = 1;
+        int end = 4;
+        ArrayList<Integer> excludeRows = new ArrayList<>();
+        Random rand = new Random();
+        int range = end - start + 1;
+        for (int i = 0; i < 4; i++) {
+            int random = rand.nextInt(range) + 1;
+            while (excludeRows.contains(random)) {
+                random = rand.nextInt(range) + 1;
+            }
+            excludeRows.add(random);
+            values[i] = random;
+        }
+
+        return values;
     }
 }
