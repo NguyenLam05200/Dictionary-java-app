@@ -63,14 +63,14 @@ public class Index extends javax.swing.JFrame {
         jPanel17 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextArea5 = new javax.swing.JTextArea();
+        textInputWordEdit = new javax.swing.JTextArea();
         jButton2 = new javax.swing.JButton();
         jPanel18 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextArea6 = new javax.swing.JTextArea();
-        jButton3 = new javax.swing.JButton();
+        textInputDefinitionEdit = new javax.swing.JTextArea();
+        SaveEdit = new javax.swing.JButton();
         SearchActionPanel = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -443,11 +443,11 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTextArea5.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea5.setColumns(20);
-        jTextArea5.setRows(5);
-        jTextArea5.setFont( jTextArea5.getFont().deriveFont(jTextArea5.getFont().getSize() + 5.0f) );
-        jScrollPane5.setViewportView(jTextArea5);
+        textInputWordEdit.setBackground(new java.awt.Color(255, 255, 255));
+        textInputWordEdit.setColumns(20);
+        textInputWordEdit.setRows(5);
+        textInputWordEdit.setFont( textInputWordEdit.getFont().deriveFont(textInputWordEdit.getFont().getSize() + 5.0f) );
+        jScrollPane5.setViewportView(textInputWordEdit);
 
         jButton2.setBackground(new java.awt.Color(255, 255, 153));
         jButton2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
@@ -517,17 +517,21 @@ public class Index extends javax.swing.JFrame {
 
         jScrollPane6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextArea6.setEditable(false);
-        jTextArea6.setBackground(new java.awt.Color(255, 255, 255));
-        jTextArea6.setColumns(20);
-        jTextArea6.setRows(5);
-        jTextArea6.setFont( jTextArea6.getFont().deriveFont(jTextArea6.getFont().getSize() + 5.0f) );
-        jScrollPane6.setViewportView(jTextArea6);
+        textInputDefinitionEdit.setBackground(new java.awt.Color(255, 255, 255));
+        textInputDefinitionEdit.setColumns(20);
+        textInputDefinitionEdit.setRows(5);
+        textInputDefinitionEdit.setFont( textInputDefinitionEdit.getFont().deriveFont(textInputDefinitionEdit.getFont().getSize() + 5.0f) );
+        jScrollPane6.setViewportView(textInputDefinitionEdit);
 
-        jButton3.setBackground(new java.awt.Color(102, 255, 102));
-        jButton3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(0, 0, 0));
-        jButton3.setText("Save");
+        SaveEdit.setBackground(new java.awt.Color(102, 255, 102));
+        SaveEdit.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        SaveEdit.setForeground(new java.awt.Color(0, 0, 0));
+        SaveEdit.setText("Save");
+        SaveEdit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SaveEditMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -538,7 +542,7 @@ public class Index extends javax.swing.JFrame {
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(SaveEdit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
@@ -549,7 +553,7 @@ public class Index extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton3)
+                .addComponent(SaveEdit)
                 .addContainerGap())
         );
 
@@ -981,7 +985,16 @@ public class Index extends javax.swing.JFrame {
 
     private void editBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editBtnMouseClicked
         // TODO add your handling code here:
+        if (SearchActionPanel.isVisible()) {
+            String inputWord = textInputSearch.getText();
+            String inputDefinition = textOutputSearch.getText();
+
+            textInputWordEdit.setText(inputWord.trim().replaceAll(" +", " "));
+            textInputDefinitionEdit.setText(inputDefinition.trim().replaceAll(" +", " "));
+        }
+
         ClickEditBtn();
+
     }//GEN-LAST:event_editBtnMouseClicked
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1009,6 +1022,15 @@ public class Index extends javax.swing.JFrame {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+        String inputSearch = textInputSearch.getText().trim().replaceAll(" +", " ");
+        if ("".equals(inputSearch)) {
+            JOptionPane.showMessageDialog(this, "Please enter something!");
+            return;
+        }
+
+        int idSearchBy = SearchByComboBox.getSelectedIndex();
+
+        Search(inputSearch, idSearchBy);
         ClickSearchNavlink();
     }//GEN-LAST:event_jButton2MouseClicked
 
@@ -1016,6 +1038,29 @@ public class Index extends javax.swing.JFrame {
         // TODO add your handling code here:
         ClickSearchNavlink();
     }//GEN-LAST:event_jButton4MouseClicked
+
+    private void SaveEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SaveEditMouseClicked
+        // TODO add your handling code here:
+
+        String inputWordEdit = textInputWordEdit.getText();
+        String inputDefinitionEdit = textInputDefinitionEdit.getText();
+        boolean canSave = true;
+        if ("".equals(inputWordEdit.trim())) {
+            JOptionPane.showMessageDialog(this, "Please fill in Slang word!");
+            canSave = false;
+        } else if ("".equals(inputDefinitionEdit.trim())) {
+            JOptionPane.showMessageDialog(this, "Please fill in Definition!");
+            canSave = false;
+        }
+        if (canSave) {
+            boolean result = dictionary.Update(inputWordEdit, inputDefinitionEdit);
+            if (result) {
+                JOptionPane.showMessageDialog(this, "Success!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Failure!");
+            }
+        }
+    }//GEN-LAST:event_SaveEditMouseClicked
 
     private void Search(String inputSearch, int idSearchBy) {
         if (idSearchBy == 0) {
@@ -1173,6 +1218,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JPanel Navlink3;
     private javax.swing.JPanel Navlink4;
     private javax.swing.JPanel Navside;
+    private javax.swing.JButton SaveEdit;
     private javax.swing.JPanel SearchActionPanel;
     private javax.swing.JPanel SearchBody;
     private javax.swing.JButton SearchBtn;
@@ -1182,7 +1228,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton historyBtn;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
@@ -1219,10 +1264,10 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JTextArea jTextArea3;
     private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextArea jTextArea5;
-    private javax.swing.JTextArea jTextArea6;
     private javax.swing.JButton randomBtn;
+    private javax.swing.JTextArea textInputDefinitionEdit;
     private javax.swing.JTextArea textInputSearch;
+    private javax.swing.JTextArea textInputWordEdit;
     private javax.swing.JTextArea textOutputHistory;
     private javax.swing.JTextPane textOutputSearch;
     // End of variables declaration//GEN-END:variables

@@ -751,7 +751,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="jTextArea5">
+                            <Component class="javax.swing.JTextArea" name="textInputWordEdit">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
@@ -760,7 +760,7 @@
                                 <Property name="rows" type="int" value="5"/>
                               </Properties>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTextArea5.setFont( jTextArea5.getFont().deriveFont(jTextArea5.getFont().getSize() + 5.0f) );"/>
+                                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textInputWordEdit.setFont( textInputWordEdit.getFont().deriveFont(textInputWordEdit.getFont().getSize() + 5.0f) );"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
@@ -800,7 +800,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jScrollPane6" alignment="1" pref="435" max="32767" attributes="0"/>
                                       <Component id="jPanel19" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="jButton3" alignment="1" max="32767" attributes="0"/>
+                                      <Component id="SaveEdit" alignment="1" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -814,7 +814,7 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="jScrollPane6" pref="315" max="32767" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                  <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="SaveEdit" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -879,9 +879,8 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JTextArea" name="jTextArea6">
+                            <Component class="javax.swing.JTextArea" name="textInputDefinitionEdit">
                               <Properties>
-                                <Property name="editable" type="boolean" value="false"/>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                                 </Property>
@@ -889,12 +888,12 @@
                                 <Property name="rows" type="int" value="5"/>
                               </Properties>
                               <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTextArea6.setFont( jTextArea6.getFont().deriveFont(jTextArea6.getFont().getSize() + 5.0f) );"/>
+                                <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="textInputDefinitionEdit.setFont( textInputDefinitionEdit.getFont().deriveFont(textInputDefinitionEdit.getFont().getSize() + 5.0f) );"/>
                               </AuxValues>
                             </Component>
                           </SubComponents>
                         </Container>
-                        <Component class="javax.swing.JButton" name="jButton3">
+                        <Component class="javax.swing.JButton" name="SaveEdit">
                           <Properties>
                             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="66" green="ff" red="66" type="rgb"/>
@@ -907,6 +906,9 @@
                             </Property>
                             <Property name="text" type="java.lang.String" value="Save"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="SaveEditMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

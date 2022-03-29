@@ -6,8 +6,10 @@ package model;
 
 import java.util.List;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +21,8 @@ import java.util.HashMap;
 public class dictionary {
 
     static String slangWordFilePath = "slang.txt";
+    static String slangWordUpdateFilePath = "slangUpdate.txt";
+
     public static List<String> slangWord = new ArrayList<>();
     static HashMap<String, List<Integer>> definitionSplit = new HashMap<>();
     static HashMap<String, String> dict = new HashMap<>();
@@ -38,6 +42,27 @@ public class dictionary {
 //            System.out.println("No result");
 //        }
 
+    }
+
+    public static boolean Update(String word, String definition) {
+//        word = word.trim().replaceAll(" +", " ");
+//        definition = definition.trim().replaceAll(" +", " ");
+
+        boolean result = true;
+        try {
+            FileWriter fstream = new FileWriter(slangWordUpdateFilePath, true);
+            BufferedWriter out = new BufferedWriter(fstream);
+            out.write(word.trim().replaceAll(" +", " ") + "`" + definition.trim().replaceAll(" +", " ") + "\n");
+            out.close();
+
+        } catch (Exception e) {
+            result = false;
+            System.err.println("Error while writing to file: "
+                    + e.getMessage());
+        }
+        getData();
+
+        return result;
     }
 
     public static String searchBySlangword(String input) {
@@ -91,6 +116,39 @@ public class dictionary {
         int index = 0;
         try {
             File file = new File(slangWordFilePath);    //creates a new file instance
+            FileReader fr = new FileReader(file);   //reads the file
+            BufferedReader br = new BufferedReader(fr);  //creates a buffering character input stream
+            String line;
+            while ((line = br.readLine()) != null) {
+                line = line.trim().replaceAll(" +", " ");
+
+                String[] lineSplited = line.split("`");
+                if (lineSplited.length == 2) {
+                    slangWord.add(lineSplited[0]);
+                    String[] defs = lineSplited[1].split(" ");
+                    for (String item : defs) {
+                        if (definitionSplit.containsKey(item)) {
+                            List<Integer> indexUpdate = definitionSplit.get(item);
+                            indexUpdate.add(index);
+                            definitionSplit.put(item, indexUpdate);
+                        } else {
+                            List<Integer> indexOfSlangword = new ArrayList<>();
+                            indexOfSlangword.add(index);
+                            definitionSplit.put(item, indexOfSlangword);
+                        }
+
+                    }
+                    dict.put(lineSplited[0], lineSplited[1]);
+                    index++;
+                }
+            }
+            fr.close();    //closes the stream and release the resources
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            File file = new File(slangWordUpdateFilePath);    //creates a new file instance
             FileReader fr = new FileReader(file);   //reads the file
             BufferedReader br = new BufferedReader(fr);  //creates a buffering character input stream
             String line;
